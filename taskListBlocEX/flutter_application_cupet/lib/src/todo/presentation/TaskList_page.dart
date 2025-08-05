@@ -33,13 +33,13 @@ class TasklistPage extends StatelessWidget {
               leading: Checkbox(
               value: task.isDone,
               onChanged: (_) {
-              context.read<TaskCubit>().toggleTask(task.id as String);
+              context.read<TaskCubit>().toggleTask(task.id);
               },
               ),
               trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
-              context.read<TaskCubit>().deleteTask(task.id as String);
+              context.read<TaskCubit>().deleteTask(task.id);
             },
           ),
         );
@@ -60,7 +60,7 @@ class TasklistPage extends StatelessWidget {
     );
   }
   void _AddTaskDialog(BuildContext context) {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
 
   showDialog(
     context: context,
@@ -68,7 +68,7 @@ class TasklistPage extends StatelessWidget {
       return AlertDialog(
         title: const Text('Add New Task'),
         content: TextField(
-          controller: _controller,
+          controller: controller,
           decoration: const InputDecoration(
             hintText: ' task titel',
           ),
@@ -80,7 +80,7 @@ class TasklistPage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              final titel = _controller.text.trim();
+              final titel = controller.text.trim();
               if (titel.isEmpty) return;
 
               final task = Task(
